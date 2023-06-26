@@ -1,5 +1,5 @@
 body
-  background-color:  #021146
+  background-color:  #000720
   font-family: monospace
   margin: 0px
   padding: 0px
@@ -10,7 +10,7 @@ body
   padding: 15px
   display: flex
   justify-content: space-evenly
-  background-color: #061961
+  background-color: #051039
   user-select: none
   .link
     color: #ffffff
@@ -28,13 +28,14 @@ body
     padding: 5px
     margin-top: 20px
     width: 400px
-    background-color: #021146
+    background-color: #000720
     color: #ffffff
     border: none
     border-radius: 10px
     font-family: monospace
     font-size: 35px
     text-align: center
+    outline: none
     &::placeholder
       color: #4054A0
   .addTestDiv
@@ -45,55 +46,27 @@ body
     align-items: center
     flex-direction: column
     border-radius: 10px
-    .input
-      padding: 5px
-      margin: 10px
-      width: 500px
-      background-color: #061961
-      color: #ffffff
-      border: none
-      border-radius: 10px
-      font-family: monospace
-      font-size: 35px
-      text-align: center
-      &::placeholder
-        color: #4054A0
-    .delQuestion
-      margin: 10px
-      height: 50px
-      width: 50px
-      background-color: #a81717
-      color: #ffffff
-      border: none
-      border-radius: 0px 10px 10px 0px
-      font-family: monospace
-      font-size: 35px
-      transition: 200ms
-      position: absolute
-      z-index: 1
-      top: 156px
-      left: 1135px
-      &:hover
-        background-color: #e41212
-    .answerDiv
+    .questionDiv
       display: flex
-      .inputAnswer
+      .inputQuestion
         padding: 5px
-        margin: 10px 0px 10px 0px
-        width: 400px
-        background-color: #061961
+        margin: 10px 0px 10px 10px
+        width: 450px
+        background-color: #051039
         color: #ffffff
         border: none
+        border-radius: 10px 0px 0px 10px
         font-family: monospace
         font-size: 35px
         text-align: center
+        outline: none
         &::placeholder
           color: #4054A0
-      .delAnswer
+      .delQuestion
         margin: 10px 10px 10px 0px
-        height: 50px
+        height: 51px
         width: 50px
-        background-color: #a81717
+        background-color: #7c1818
         color: #ffffff
         border: none
         border-radius: 0px 10px 10px 0px
@@ -101,12 +74,40 @@ body
         font-size: 35px
         transition: 200ms
         &:hover
-          background-color: #e41212
+          background-color: #c41818
+    .answerDiv
+      display: flex
+      .inputAnswer
+        padding: 5px
+        margin: 10px 0px 10px 0px
+        width: 400px
+        background-color: #051039
+        color: #ffffff
+        border: none
+        font-family: monospace
+        font-size: 35px
+        text-align: center
+        outline: none
+        &::placeholder
+          color: #4054A0
+      .delAnswer
+        margin: 10px 10px 10px 0px
+        height: 51px
+        width: 50px
+        background-color: #7c1818
+        color: #ffffff
+        border: none
+        border-radius: 0px 10px 10px 0px
+        font-family: monospace
+        font-size: 35px
+        transition: 200ms
+        &:hover
+          background-color: #c41818
       .trueAnswer
         margin: 10px 0px 10px 10px
-        height: 50px
+        height: 51px
         width: 50px
-        background-color: #1ca817
+        background-color: #188f14
         color: #ffffff
         border: none
         border-radius: 10px 0px 0px 10px
@@ -114,12 +115,12 @@ body
         font-size: 35px
         transition: 200ms
         &:hover
-          background-color: #19e012
+          background-color: #1bbe15
       .falseAnswer
         margin: 10px 0px 10px 10px
-        height: 50px
+        height: 51px
         width: 50px
-        background-color: #a8a617
+        background-color: #99971a
         color: #ffffff
         border: none
         border-radius: 10px 0px 0px 10px
@@ -127,13 +128,14 @@ body
         font-size: 35px
         transition: 200ms
         &:hover
-          background-color: #e0dd13
+          background-color: #dbd813
     .divPage
       display: flex
       .buttonPage
+        padding: 5px
         margin: 10px
         width: 210px
-        background-color: #061961
+        background-color: #051039
         color: #ffffff
         border: none
         border-radius: 10px
@@ -143,10 +145,11 @@ body
         &:hover
           color: #4054A0
       .addQuestion
+        padding: 5px
         margin: 10px
         height: 50px
         width: 50px
-        background-color: #061961
+        background-color: #051039
         color: #ffffff
         border: none
         border-radius: 10px
@@ -156,9 +159,10 @@ body
         &:hover
           color: #4054A0
     .button
+      padding: 5px
       margin: 10px
       width: 510px
-      background-color: #061961
+      background-color: #051039
       color: #ffffff
       border: none
       border-radius: 10px
@@ -167,3 +171,5 @@ body
       transition: 200ms
       &:hover
         color: #4054A0
+  .errorSpan
+    color: #c41818

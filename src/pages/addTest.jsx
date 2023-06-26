@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { randomNumber } from "@/utils/randomNumber"
+import { set } from "mongoose"
 
 export default function addTest() {
   const [test, setTest] = useState({
@@ -14,77 +15,106 @@ export default function addTest() {
       }]
     }]
   })
-  const [numA, setNumA] = useState(0)
+  const [numQ, setNumQ] = useState(0)
+  const [error, setError] = useState("")
 
   const newAnswer = () => {
     setTest({
       ...test,
-      questions: [{
-        ...test.questions[numA],
-        answers: test.questions[numA].answers.concat({
-          id: randomNumber(1000,9999),
-          textA: "",
-          state: false
-        })
-      }]
+      questions: 
+        test.questions.map((question, index) => index === numQ ? 
+        {
+          ...question,
+          answers: [
+            ...question.answers,
+            {
+              id: randomNumber(1000, 9999),
+              textA: "",
+              state: false
+            }
+          ]
+        } : question)
     })
+    setError("Ошибка: это ROFLS")
   }
 
   const delAnswer = (id) => {
     setTest({
       ...test,
-      questions: [{
-        ...test.questions[numA],
-        answers: test.questions[numA].answers.filter((answer) => answer.id !== id)
-      }]
+      questions: 
+        test.questions.map((question, index) => index === numQ ?
+        {
+          ...question,
+          answers: test.questions[numQ].answers.filter((answer) => answer.id !== id)
+        } : question)
     })
   }
 
   const checkAnswer = (id) => {
     setTest({
       ...test,
-      questions: [{
-        ...test.questions[numA],
-        answers: test.questions[numA].answers.map((answer) => answer.id === id && !answer.state ? {...answer, state: true} : {...answer, state: false})
-      }]
+      questions: 
+        test.questions.map((question, index) => index === numQ ?
+        {
+          ...question,
+          answers: test.questions[numQ].answers.map((answer) => answer.id === id ? { ...answer, state: !answer.state } : answer)
+        } : question)
     })
   }
 
   const newQuestion = async() => {
+    setTest({
+      ...test,
+      questions: [
+        ...test.questions,
+        {
+          id: randomNumber(1000, 9999),
+          textQ: "",
+          answers: [{
+              id: randomNumber(1000, 9999),
+              textA: "",
+              state: false
+          }]
+        }
+      ]
+    })
+  }
 
+  const delQuestion = () => {
+    if (test.questions.length != 1) {
+      setTest({
+        ...test,
+        questions: test.questions.filter((question) => question.id !== test.questions[numQ].id)
+      })
+      numQ != 0 ? setNumQ(numQ - 1) : setNumQ(0)
+    } else {setError("Ошибка: нужен минимум один вопрос")}
   }
 
   const backQ = () => {
-    numA ? setNumA(numA - 1) : setNumA(Object.keys(test).length - 1)
+    numQ ? setNumQ(numQ - 1) : setNumQ(test.questions.length - 1)
   }
 
   const nextQ = () => {
-    setNumA(numA + 1)
+    test.questions.length != numQ + 1 ? setNumQ(numQ + 1) : setNumQ(0)
   }
-
-
 
   const addTest = async() => {
 
-  }
-
-  const testF = () => {
-    console.log(test)
   }
 
   return(
     <div className="addDivPage">
       <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" onChange={(e)=>setTest({...test, name: e.target.value})}/>
       <div className="addTestDiv">
-        <input className="input" placeholder="Введите вопрос" onChange={(e)=>setTest({...test.questions[numQ], textQ: e.textQ.value})}/>
-        <button className="delQuestion">x</button>
-        {test.questions[numA].answers.map((answer) => (
+        <div className="questionDiv">
+          <input className="inputQuestion" placeholder="Введите вопрос" onChange={(e)=>setTest({...test, questions: [{...test.questions[numQ], textQ: e.target.value}]})}/>
+          <button className="delQuestion" onClick={delQuestion}>x</button>
+        </div>
+        {test.questions[numQ].answers.map((answer) => (
         <div className="answerDiv">
           {!answer.state ?
-          <button className="falseAnswer" onClick={()=>checkAnswer(answer.id)}>-</button>
-          :
-          <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>ъ</button>
-          }
+          <button className="falseAnswer" onClick={()=>checkAnswer(answer.id)}>-</button> :
+          <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>ъ</button>}
         <input className="inputAnswer" placeholder="Введите ответ"/>
         <button className="delAnswer" onClick={()=>delAnswer(answer.id)}>x</button>
         </div>))}
@@ -94,9 +124,10 @@ export default function addTest() {
           <button className="addQuestion" onClick={newQuestion}>+</button>
           <button className="buttonPage" onClick={nextQ}>ДАЛЕЕ</button>
         </div>
+        <span>{numQ + 1} / {test.questions.length}</span>
         <button className="button" onClick={addTest}>СОЗДАТЬ ТЕСТ</button>
       </div>
-      <button onClick={testF}>првоирка фич</button>
+      <span className="errorSpan">{error}</span>
     </div>
   )
 }
