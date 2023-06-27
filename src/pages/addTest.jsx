@@ -12,11 +12,42 @@ export default function addTest() {
         id: randomNumber(1000,9999),
         textA: "",
         state: false
+      },
+      {
+        id: randomNumber(1000,9999),
+        textA: "",
+        state: false
       }]
     }]
   })
   const [numQ, setNumQ] = useState(0)
   const [error, setError] = useState("")
+
+const valueQ = (e) => {
+  setTest({
+    ...test,
+    questions: test.questions.map((question, index) =>
+      index === numQ ? {...question, textQ: e.target.value} : question
+    )
+  })
+}
+
+const valueA = (e, numA) => {
+  setTest({
+    ...test,
+    questions: test.questions.map((question, index) => 
+      index === numQ ? {
+        ...question, 
+        answers: question.answers.map((answer, i) => 
+          i === numA ? {
+            ...answer, 
+            textA: e.target.value 
+          }
+          : answer)
+      } : question
+    )
+  })
+}
 
   const newAnswer = () => {
     setTest({
@@ -39,6 +70,7 @@ export default function addTest() {
   }
 
   const delAnswer = (id) => {
+    test.questions[numQ].answers.length > 2 ?
     setTest({
       ...test,
       questions: 
@@ -47,7 +79,7 @@ export default function addTest() {
           ...question,
           answers: test.questions[numQ].answers.filter((answer) => answer.id !== id)
         } : question)
-    })
+    }) : setError("Ошибка: нужно минимум два ответа")
   }
 
   const checkAnswer = (id) => {
@@ -74,6 +106,11 @@ export default function addTest() {
               id: randomNumber(1000, 9999),
               textA: "",
               state: false
+          },
+          {
+            id: randomNumber(1000,9999),
+            textA: "",
+            state: false
           }]
         }
       ]
@@ -99,23 +136,29 @@ export default function addTest() {
   }
 
   const addTest = async() => {
-
+    if (test.questions[numQ].textQ == "") {
+      setError("Ошибка: заполните поле с вопросом")
+    } else if (test.questions[numQ].answers.filter((answer) => answer.textA.length == 0).length != 0) {
+      setError("Ошибка: заполните поле с ответом")
+    } else if (test.questions[numQ].answers.filter((answer) => answer.state == true).length == 0) {
+      setError("Ошибка: нужен минимум один правильный ответ")
+    }
   }
 
   return(
     <div className="addDivPage">
-      <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" onChange={(e)=>setTest({...test, name: e.target.value})}/>
+      <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" onChange={(e) => setTest({...test, name: e.target.value})}/>
       <div className="addTestDiv">
         <div className="questionDiv">
-          <input className="inputQuestion" placeholder="Введите вопрос" onChange={(e)=>setTest({...test, questions: [{...test.questions[numQ], textQ: e.target.value}]})}/>
+          <input className="inputQuestion" placeholder="Введите вопрос" value={test.questions[numQ].textQ} onChange={(e) => valueQ(e)}/>
           <button className="delQuestion" onClick={delQuestion}>x</button>
         </div>
-        {test.questions[numQ].answers.map((answer) => (
+        {test.questions[numQ].answers.map((answer, index) => (
         <div className="answerDiv">
           {!answer.state ?
           <button className="falseAnswer" onClick={()=>checkAnswer(answer.id)}>-</button> :
-          <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>ъ</button>}
-        <input className="inputAnswer" placeholder="Введите ответ"/>
+          <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>+</button>}
+        <input className="inputAnswer" placeholder="Введите ответ" value={answer.textA} onChange={(e) => valueA(e, index)}/>
         <button className="delAnswer" onClick={()=>delAnswer(answer.id)}>x</button>
         </div>))}
         <button className="button" onClick={newAnswer}>+</button>
