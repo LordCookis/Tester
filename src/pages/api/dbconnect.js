@@ -1,4 +1,4 @@
-import connectDB from '@/lib/mongodb'
+import connectDB from '@/lib/connectDB'
 
 export default function dbConnection(req, res){
   connectDB()

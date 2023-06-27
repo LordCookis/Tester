@@ -1,17 +1,19 @@
-import {Schema, model, models} from 'mongoose'
+import {Schema, model} from 'mongoose'
 
 const testsSchema = new Schema({
   name: String,
-  //questions: [{
-  //  id: Number,
-  //  textQ: String,
-  //  answers: [{
-  //    id: Number,
-  //    textA: String,
-  //    state: Boolean 
-  //  }]
-  //}]
+  type: Boolean,
+  owner: String,
+  questions: [{
+    id: Number,
+    textQ: String,
+    answers: [{
+      id: Number,
+      textA: String,
+      state: Boolean 
+    }]
+  }]
 })
 
-const tests = models.tests || model('Tests', testsSchema)
+const tests = model('Tests', testsSchema)
 export default tests
