@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { randomNumber } from "@/utils/randomNumber"
-import { set } from "mongoose"
+//import { set } from "mongoose"
 
 export default function addTest() {
   const [test, setTest] = useState({
     name: "",
+    type: true,
+    owner: "",
     questions: [{
       id: randomNumber(1000,9999),
       textQ: "",
@@ -147,10 +149,13 @@ const valueA = (e, numA) => {
 
   return(
     <div className="addDivPage">
-      <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" onChange={(e) => setTest({...test, name: e.target.value})}/>
+      <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" onChange={(e)=>setTest({...test, name: e.target.value})}/>
       <div className="addTestDiv">
         <div className="questionDiv">
-          <input className="inputQuestion" placeholder="Введите вопрос" value={test.questions[numQ].textQ} onChange={(e) => valueQ(e)}/>
+          {test.type ? 
+          <button className="publicTest" onClick={()=>setTest({...test, type: false})}>O</button> :
+          <button className="privateTest" onClick={()=>setTest({...test, type: true})}>З</button>}
+          <input className="inputQuestion" placeholder="Введите вопрос" value={test.questions[numQ].textQ} onChange={(e)=>valueQ(e)}/>
           <button className="delQuestion" onClick={delQuestion}>x</button>
         </div>
         {test.questions[numQ].answers.map((answer, index) => (
@@ -158,7 +163,7 @@ const valueA = (e, numA) => {
           {!answer.state ?
           <button className="falseAnswer" onClick={()=>checkAnswer(answer.id)}>-</button> :
           <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>+</button>}
-        <input className="inputAnswer" placeholder="Введите ответ" value={answer.textA} onChange={(e) => valueA(e, index)}/>
+        <input className="inputAnswer" placeholder="Введите ответ" value={answer.textA} onChange={(e)=>valueA(e, index)}/>
         <button className="delAnswer" onClick={()=>delAnswer(answer.id)}>x</button>
         </div>))}
         <button className="button" onClick={newAnswer}>+</button>
