@@ -1,4 +1,4 @@
-import connectDB from "@/lib/connectDB"
+import connectDB from "@/lib/mongodb"
 
 export const baseServices = {
   async connect() {

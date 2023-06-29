@@ -1,6 +1,5 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { randomNumber } from "@/utils/randomNumber"
-//import { set } from "mongoose"
 import { services } from "@/services"
 
 export default function addTest() {
@@ -25,6 +24,10 @@ export default function addTest() {
   })
   const [numQ, setNumQ] = useState(0)
   const [error, setError] = useState("")
+
+useEffect (() => {
+  setError("")
+}, [])
 
 const valueQuestion = (e) => {
   setTest({
@@ -69,7 +72,6 @@ const valueAnswer = (e, numA) => {
           ]
         } : question)
     })
-    setError("Ошибка: это ROFLS")
   }
 
   const delAnswer = (id) => {

@@ -5,3 +5,5 @@ export const testsServices = {
     await tests.create(test);
   }
 }
+
+export default testsServices
