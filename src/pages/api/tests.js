@@ -1,9 +1,11 @@
 import tests from '@/models/tests'
 
-export default async function dbConnection(req, res){
-  const { test } = req.body
+export default async function testApi(req, res){
   if (req.method === 'POST') {
-    const result = await tests.create({test})
-    res.status(200).json({result})
+    const { test } = req.body
+    console.log("TESTS BACK", test)
+    
+    const result = await tests.create(test)
+    res.json({result})
   }
 }
