@@ -1,7 +1,6 @@
-import connectDB from "@/lib/mongodb"
-
 export const baseServices = {
   async connect() {
-    await connectDB()
+    const result = await fetch("../../api/dbconnect")
+    console.log(await result.json())
   }
 }
