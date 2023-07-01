@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { randomNumber } from "@/utils/randomNumber"
-import { services } from "@/services"
 
 export default function addTest() {
   const [test, setTest] = useState({
@@ -141,11 +140,13 @@ const valueAnswer = (e, numA) => {
   }
 
   const newTest = async() => {
-    if (test.questions[numQ].textQ === "") {
+    if (test.name === "") {
+      setError("Ошибка: введите название теста")
+    } else if (test.questions[numQ].textQ === "") {
       setError("Ошибка: заполните поле с вопросом")
     } else if (test.questions[numQ].answers.filter((answer) => answer.textA.length === 0).length !== 0) {
       setError("Ошибка: заполните поле с ответом")
-    } else if (test.questions[numQ].answers.filter((answer) => answer.state === true).length === 0) {
+    } else if (test.questions.some((question) => question.answers.filter((answer) => answer.state === true).length === 0)) {
       setError("Ошибка: нужен минимум один правильный ответ")
     } else {
       await fetch('/api/tests', {
@@ -155,12 +156,32 @@ const valueAnswer = (e, numA) => {
         },
         body: JSON.stringify({test}),
       })
+      setNumQ(0)
+      setTest({
+        name: "",
+        type: true,
+        owner: "",
+        questions: [{
+          id: randomNumber(1000,9999),
+          textQ: "",
+          answers: [{
+            id: randomNumber(1000,9999),
+            textA: "",
+            state: false
+          },
+          {
+            id: randomNumber(1000,9999),
+            textA: "",
+            state: false
+          }]
+        }]
+      })
     }
   }
 
   return(
     <div className="addDivPage">
-      <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" onChange={(e)=>setTest({...test, name: e.target.value})}/>
+      <input className="inputName" placeholder="НАЗВАНИЕ ТЕСТА" value={test.name} onChange={(e)=>setTest({...test, name: e.target.value})}/>
       <div className="addTestDiv">
         <div className="questionDiv">
           {test.type ? 

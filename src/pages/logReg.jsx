@@ -14,7 +14,8 @@ export default function logReg() {
     } else if (password === "") {
       setError("Ошибка: пароля нет")
     } else {
-      localStorage.setItem("login", login)
+        await fetch(`/api/users?login=${login}&password=${password}`)
+        localStorage.setItem("login", login)
     }
   }
 
@@ -28,6 +29,13 @@ export default function logReg() {
       setError("Ошибка: пароли не совподают")
     } else {
       localStorage.setItem("login", login)
+      await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({login, password}),
+      })
       setLogin("")
       setPassword("")
       setCheckPassword("")

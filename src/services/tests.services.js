@@ -1,9 +1,6 @@
-import tests from "@/models/tests"
-
 export const testsServices = {
-  async add(test) {
-    await tests.create(test);
+  async add() {
+    const result = await fetch("../../api/tests")
+    console.log(await result.json())
   }
 }
-
-export default testsServices
