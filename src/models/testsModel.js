@@ -1,7 +1,7 @@
 import {Schema, model} from 'mongoose'
 
 const mongoose = require('mongoose')
-const testsModel = mongoose.model('tests')
+const tests = mongoose.model('tests')
 
 const testsSchema = new Schema({
   name: String,
@@ -18,5 +18,5 @@ const testsSchema = new Schema({
   }]
 })
 
-const tests = testsModel || model('tests', testsSchema)
-export default tests
+const testsModel = tests || model('tests', testsSchema)
+export default testsModel

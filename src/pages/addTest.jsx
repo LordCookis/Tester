@@ -25,7 +25,7 @@ export default function addTest() {
   const [error, setError] = useState("")
 
 useEffect (() => {
-  setError("")
+  setTest({...test, owner: localStorage.getItem('login')})
 }, [])
 
 const valueQuestion = (e) => {

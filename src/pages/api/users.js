@@ -1,23 +1,21 @@
-import users from '@/models/users'
+import usersModel from '@/models/usersModel'
 
 export default async function usersApi(req, res){
+  console.log(usersModel)
   if (req.method === 'POST') {
     const { login, password } = req.body
-    console.log(login,password)
-    const result = await users.create({login: login, password: password, role: false})
+    const result = await usersModel.create({login: login, password: password, role: false})
     res.json({result})
   }
   if (req.method === 'GET') {
     const { login, password } = req.query
-    console.log(login, password)
-    const existingUser = await users.findOne({ login: login })
-    if (!existingUser) {
+    const result = await usersModel.findOne({login: login})
+    if (!result) {
       return res.status(400).json({error: "Ошибка: такого логина нет"})
     }
-    if (existingUser.password !== password) {
+    if (result.password !== password) {
       return res.status(400).json({error: "Ошибка: пароль неверный"})
     }
-    localStorage.setItem("login", login)
-    res.json({ success: true })
+    res.json({success: true})
   }
 }

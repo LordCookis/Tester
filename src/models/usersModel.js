@@ -1,6 +1,7 @@
 import {Schema, model} from 'mongoose'
+
 const mongoose = require('mongoose')
-const usersModel = mongoose.model('users')
+const users = mongoose.model('users')
 
 const usersSchema = new Schema({
   login: String,
@@ -8,5 +9,5 @@ const usersSchema = new Schema({
   role: Boolean
 })
 
-const users = usersModel || model('users', usersSchema)
-export default users
+const usersModel = users || model('users', usersSchema)
+export default usersModel

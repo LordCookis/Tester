@@ -14,8 +14,14 @@ export default function logReg() {
     } else if (password === "") {
       setError("Ошибка: пароля нет")
     } else {
-        await fetch(`/api/users?login=${login}&password=${password}`)
-        localStorage.setItem("login", login)
+        const result = await fetch(`/api/users?login=${login}&password=${password}`)
+        const data = await result.json()
+        if (data.success) {
+          localStorage.setItem("login", login)
+        }
+        setLogin("")
+        setPassword("")
+        setCheckPassword("")
     }
   }
 

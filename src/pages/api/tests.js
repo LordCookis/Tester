@@ -1,9 +1,10 @@
-import tests from '@/models/tests'
+import testsModel from '@/models/testsModel'
 
 export default async function testsApi(req, res){
+  console.log(testsModel)
   if (req.method === 'POST') {
     const { test } = req.body
-    const result = await tests.create(test)
-    res.json({result})
+    const result = await testsModel.create(test)
+    res.json({ result })
   }
 }
