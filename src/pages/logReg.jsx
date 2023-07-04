@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useRouter } from 'next/router'
 
 export default function logReg() {
   const [page, setPage] = useState(true)
@@ -6,6 +7,7 @@ export default function logReg() {
   const [password, setPassword] = useState("")
 	const [checkPassword, setCheckPassword] = useState("")
   const [error, setError] = useState("")
+  const router = useRouter()
 
   const log = async(e) => {
     e.preventDefault()
@@ -14,14 +16,15 @@ export default function logReg() {
     } else if (password === "") {
       setError("Ошибка: пароля нет")
     } else {
-        const result = await fetch(`/api/users?login=${login}&password=${password}`)
-        const data = await result.json()
-        if (data.success) {
-          localStorage.setItem("login", login)
-        }
-        setLogin("")
-        setPassword("")
-        setCheckPassword("")
+      const result = await fetch(`/api/users?login=${login}&password=${password}`)
+      const data = await result.json()
+      if (data.success) {
+        localStorage.setItem("login", login)
+        router.push('/')
+      }
+      setLogin("")
+      setPassword("")
+      setCheckPassword("")
     }
   }
 
@@ -46,7 +49,6 @@ export default function logReg() {
       setPassword("")
       setCheckPassword("")
     }
-    
   }
 
   const reset = () => {
