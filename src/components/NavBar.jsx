@@ -22,9 +22,9 @@ export default function NavBar() {
       {state ?
         <>
           <Link href="/" className="link">ВСЕ ТЕСТЫ</Link>
-          <button className="button" onClick={logout}>ВЫХОД</button>
           <Link href="/myTests" className="link">МОИ ТЕСТЫ</Link>
           <Link href="/addTest" className="link">СОЗДАТЬ ТЕСТ</Link>
+          <button className="button" onClick={logout}>ВЫХОД</button>
         </> 
         : 
         <Link href="/logReg" className="link">ВХОД</Link>

@@ -11,21 +11,22 @@ export default function Home() {
   }, [])
 
   const allTests = async() => {
-    const result = await fetch(`/api/tests?type=${true}`)
-    setTests(result)
+    const result = await fetch('/api/tests',{
+      method: 'GET'
+    })
+    const data = await result.json()
+    setTests(data.result)
   }
 
   return (
-    <>
-      {tests.map(() => (
-      <div className='mainDiv'>
-        <div className='test'>
-          <span className='span'>ТЕСТ НА ГЕЯ</span>
-          <span className='span'>Автор: Абобик</span>
-          <span className='span'>Вопросов: 15</span>
-        </div>
+    <div className='mainDivPage'>
+      {tests.map((test) => (
+      <div className='testDiv'>
+        <span className='spanName'>{test.name}</span>
+        <span className='span'>Вопросов: {test.questions.length}</span>
+        <span className='span'>Автор: {test.owner}</span>
       </div>
       ))}
-    </>
+    </div>
   )
 }
