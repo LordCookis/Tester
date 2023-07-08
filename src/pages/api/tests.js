@@ -8,7 +8,22 @@ export default async function testsApi(req, res){
     res.json({result})
   }
   if (req.method === 'GET') {
-    const result = await testsModel.find({type: true}).exec()
-    res.json({result})
+    const { owner, type } = req.query
+    if (owner) {
+      if (type !== null) {
+        const result = await testsModel.find({owner: owner, type: type}).exec()
+      } else {
+        const result = await testsModel.find({owner: owner}).exec()
+      }
+      res.json({result})
+    } else {
+      if (type !== undefined) {
+        const result = await testsModel.find({type: type}).exec()
+        res.json({result})
+      } else {
+        const result = await testsModel.find().exec()
+        res.json({result})
+      }
+    }
   }
 }

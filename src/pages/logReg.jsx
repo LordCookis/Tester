@@ -37,14 +37,18 @@ export default function logReg() {
     } else if (password !== checkPassword) {
       setError("Ошибка: пароли не совподают")
     } else {
-      localStorage.setItem("login", login)
-      await fetch('/api/users', {
+      const result = await fetch('/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({login, password}),
       })
+      const data = await result.json()
+      if (data.success) {
+        localStorage.setItem("login", login)
+        router.push('/')
+      }
       setLogin("")
       setPassword("")
       setCheckPassword("")

@@ -1,11 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [tests, setTests] = useState([])
-  const [type, setType] = useState(0)
+  const [type, setType] = useState(undefined)
 
   useEffect(()=>{
     allTests()
@@ -19,6 +16,20 @@ export default function Home() {
     setTests(data.result)
   }
 
+  const showType = async() => {
+    type === undefined ? setType(true) : type === true ? setType(false) : setType(undefined)
+    if (type !== undefined) {
+      const result = await fetch(`/api/tests?type=${type}`,{
+        method: 'GET'
+      })
+      const data = await result.json()
+      setTests(data.result)
+    } else {
+      allTests()
+    }
+    console.log(type)
+  }
+
   return (
     <div className='mainPage'>
       <div className='filterDiv'>
@@ -27,13 +38,7 @@ export default function Home() {
           <button className='button'>НАЙТИ</button>
         </div>
         <div className='typeDiv'>
-          {type === 0 ?
-          <button className='button' onClick={()=>setType(1)}>ВСЕ</button>
-          : type === 1 ?
-          <button className='button' onClick={()=>setType(2)}>ОТКРЫТЫЕ</button>
-          :
-          <button className='button' onClick={()=>setType(0)}>ЗАКРЫТЫЕ</button>
-          }
+          <button className='button' onClick={showType}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
     <div className='mainDivPage'>
