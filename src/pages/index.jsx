@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 export default function Home() {
   const [tests, setTests] = useState([])
   const [type, setType] = useState(undefined)
+  const [text, setText] = useState("")
 
   useEffect(()=>{
     allTests()
@@ -16,29 +17,34 @@ export default function Home() {
     setTests(data.result)
   }
 
-  const showType = async() => {
+  const nextType = () => {
     type === undefined ? setType(true) : type === true ? setType(false) : setType(undefined)
+  }
+
+  const performSearch = async(e) => {
+    let url = '/api/tests?'
     if (type !== undefined) {
-      const result = await fetch(`/api/tests?type=${type}`,{
-        method: 'GET'
-      })
-      const data = await result.json()
-      setTests(data.result)
-    } else {
-      allTests()
+      url += `type=${type}&`
     }
-    console.log(type)
+    if (text) {
+      url += `text=${text}&`
+    }
+    const result = await fetch(url, {
+      method: 'GET',
+    })
+    const data = await result.json()
+    setTests(data.result)
   }
 
   return (
     <div className='mainPage'>
       <div className='filterDiv'>
-        <div className='findDiv'>
-          <input className='input' placeholder='ПОИСК'/>
+        <form className='findDiv' onSubmit={(e)=>{e.preventDefault(); performSearch()}}>
+          <input className='input' value={text} placeholder='ПОИСК' onChange={(e)=>setText(e.target.value)}/>
           <button className='button'>НАЙТИ</button>
-        </div>
-        <div className='typeDiv'>
-          <button className='button' onClick={showType}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
+        </form>
+        <div className='typeDiv't>
+          <button className='button' onClick={()=>{nextType(); performSearch()}}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
     <div className='mainDivPage'>

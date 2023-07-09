@@ -8,22 +8,19 @@ export default async function testsApi(req, res){
     res.json({result})
   }
   if (req.method === 'GET') {
-    const { owner, type } = req.query
+    const { owner, type, text } = req.query
+    const query = {}
     if (owner) {
-      if (type !== null) {
-        const result = await testsModel.find({owner: owner, type: type}).exec()
-      } else {
-        const result = await testsModel.find({owner: owner}).exec()
-      }
-      res.json({result})
-    } else {
-      if (type !== undefined) {
-        const result = await testsModel.find({type: type}).exec()
-        res.json({result})
-      } else {
-        const result = await testsModel.find().exec()
-        res.json({result})
-      }
+      query.owner = owner
     }
+    if (type !== undefined) {
+      query.type = type
+    }
+    if (text) {
+      //const regex = new RegExp(`.*${text}.*`, 'i')
+      query.$or = [{name: /.*${text}.*/}, {owner: /.*${text}.*/}]
+    }
+    const result = await testsModel.find(query).exec()
+    res.json({ result })
   }
 }

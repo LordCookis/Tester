@@ -2,8 +2,8 @@ import { useState, useEffect } from "react"
 
 export default function myTests() {
   const [tests, setTests] = useState([])
-  const [type, setType] = useState(0)
-  //const [login, setLogin] = useState("")
+  const [type, setType] = useState(undefined)
+  const [text, setText] = useState("")
 
   useEffect(()=>{
     myTests()
@@ -18,21 +18,35 @@ export default function myTests() {
     setTests(data.result)
   }
 
+  const nextType = () => {
+    type === undefined ? setType(true) : type === true ? setType(false) : setType(undefined)
+  }
+
+  const performSearch = async(e) => {
+    const owner = localStorage.getItem('login')
+    let url = `/api/tests?owner=${owner}&`
+    if (type !== undefined) {
+      url += `type=${type}&`
+    }
+    if (text) {
+      url += `text=${text}&`
+    }
+    const result = await fetch(url, {
+      method: 'GET',
+    })
+    const data = await result.json()
+    setTests(data.result)
+  }
+
   return (
     <div className='mainPage'>
       <div className='filterDiv'>
-        <div className='findDiv'>
-          <input className='input' placeholder='ПОИСК'/>
+        <form className='findDiv' onSubmit={(e)=>{e.preventDefault(); performSearch()}}>
+          <input className='input' value={text} placeholder='ПОИСК' onChange={(e)=>setText(e.target.value)}/>
           <button className='button'>НАЙТИ</button>
-        </div>
-        <div className='typeDiv'>
-          {type === 0 ?
-          <button className='button' onClick={()=>setType(1)}>ВСЕ</button>
-          : type === 1 ?
-          <button className='button' onClick={()=>setType(2)}>ОТКРЫТЫЕ</button>
-          :
-          <button className='button' onClick={()=>setType(0)}>ЗАКРЫТЫЕ</button>
-          }
+        </form>
+        <div className='typeDiv't>
+          <button className='button' onClick={()=>{nextType(); performSearch()}}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
     <div className='mainDivPage'>
