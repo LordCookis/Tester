@@ -5,7 +5,11 @@ body
   padding: 0px
   color: #F6FBFE !important
   font-size: 25px
-  
+
+a
+  color: inherit
+  text-decoration: none !important
+
 .NavBar
   height: 40px
   padding: 15px
@@ -109,6 +113,81 @@ body
       .span
         margin: 5px
 
+.testDivPage
+  display: flex
+  flex-direction: column
+  align-items: center
+  .testName
+    margin-top: 20px
+    color: #34C8EC
+    font-size: 50px
+  .testQuestion
+    margin: 20px
+    font-size: 50px
+  .answerDiv
+    display: flex
+    flex-direction: column
+    .testAnswer
+      padding: 10px 20px 10px 20px
+      margin: 20px
+      background-color: #051039
+      color: #ffffff
+      border: none
+      border-radius: 10px
+      font-family: monospace
+      font-size: 45px
+      transition: 200ms
+      cursor: pointer
+      &:hover
+        color: #4054A0
+  .divPage
+    display: flex
+    .buttonPage
+      padding: 10px
+      margin: 20px 10px 20px 10px
+      width: 240px
+      background-color: #051039
+      color: #ffffff
+      border: none
+      border-radius: 10px
+      font-family: monospace
+      font-size: 35px
+      transition: 200ms
+      cursor: pointer
+      &:hover
+        color: #4054A0
+    .buttonExit
+      padding: 10px
+      margin: 20px 10px 20px 10px
+      height: 60px
+      width: 60px
+      background-color: #7c1818
+      color: #ffffff
+      border: none
+      border-radius: 10px
+      font-family: monospace
+      font-size: 35px
+      transition: 200ms
+      cursor: pointer
+      &:hover
+          background-color: #c41818
+  .span
+    font-size: 35px
+  .buttonEnd
+    padding: 10px
+    margin: 20px
+    width: 580px
+    background-color: #051039
+    color: #ffffff
+    border: none
+    border-radius: 10px
+    font-family: monospace
+    font-size: 35px
+    transition: 200ms
+    cursor: pointer
+    &:hover
+      color: #4054A0
+
 .addDivPage
   display: flex
   flex-direction: column
@@ -116,13 +195,13 @@ body
   .inputName
     padding: 5px
     margin-top: 20px
-    width: 400px
+    width: 750px
     background-color: #000720
     color: #ffffff
     border: none
     border-radius: 10px
     font-family: monospace
-    font-size: 35px
+    font-size: 40px
     text-align: center
     outline: none
     &::placeholder
@@ -138,54 +217,54 @@ body
     .questionDiv
       display: flex
       .publicTest
-        margin: 10px 0px 10px 10px
-        height: 51px
-        width: 50px
+        margin: 15px 0px 15px 15px
+        height: 57px
+        width: 57px
         background-color: #188f14
         color: #ffffff
         border: none
         border-radius: 10px 0px 0px 10px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           background-color: #1bbe15
       .privateTest
-        margin: 10px 0px 10px 10px
-        height: 51px
-        width: 50px
+        margin: 15px 0px 15px 15px
+        height: 57px
+        width: 57px
         background-color: #99971a
         color: #ffffff
         border: none
         border-radius: 10px 0px 0px 10px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           background-color: #dbd813
       .inputQuestion
         padding: 5px
-        margin: 10px 0px 10px 0px
-        width: 400px
+        margin: 15px 0px 15px 0px
+        width: 450px
         background-color: #051039
         color: #ffffff
         border: none
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         text-align: center
         outline: none
         &::placeholder
           color: #4054A0
       .delQuestion
-        margin: 10px 10px 10px 0px
-        height: 51px
-        width: 50px
+        margin: 15px 15px 15px 0px
+        height: 57px
+        width: 57px
         background-color: #7c1818
         color: #ffffff
         border: none
         border-radius: 0px 10px 10px 0px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           background-color: #c41818
@@ -193,53 +272,53 @@ body
       display: flex
       .inputAnswer
         padding: 5px
-        margin: 10px 0px 10px 0px
-        width: 400px
+        margin: 15px 0px 15px 0px
+        width: 450px
         background-color: #051039
         color: #ffffff
         border: none
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         text-align: center
         outline: none
         &::placeholder
           color: #4054A0
       .delAnswer
-        margin: 10px 10px 10px 0px
-        height: 51px
-        width: 50px
+        margin: 15px 15px 15px 0px
+        height: 57px
+        width: 57px
         background-color: #7c1818
         color: #ffffff
         border: none
         border-radius: 0px 10px 10px 0px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           background-color: #c41818
       .trueAnswer
-        margin: 10px 0px 10px 10px
-        height: 51px
-        width: 50px
+        margin: 15px 0px 15px 15px
+        height: 57px
+        width: 57px
         background-color: #188f14
         color: #ffffff
         border: none
         border-radius: 10px 0px 0px 10px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           background-color: #1bbe15
       .falseAnswer
-        margin: 10px 0px 10px 10px
-        height: 51px
-        width: 50px
+        margin: 15px 0px 15px 15px
+        height: 57px
+        width: 57px
         background-color: #99971a
         color: #ffffff
         border: none
         border-radius: 10px 0px 0px 10px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           background-color: #dbd813
@@ -248,40 +327,40 @@ body
       .buttonPage
         padding: 5px
         margin: 10px
-        width: 210px
+        width: 240px
         background-color: #051039
         color: #ffffff
         border: none
         border-radius: 10px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           color: #4054A0
       .addQuestion
         padding: 5px
         margin: 10px
-        height: 50px
-        width: 50px
+        height: 57px
+        width: 57px
         background-color: #051039
         color: #ffffff
         border: none
         border-radius: 10px
         font-family: monospace
-        font-size: 35px
+        font-size: 40px
         transition: 200ms
         &:hover
           color: #4054A0
     .button
       padding: 5px
       margin: 10px
-      width: 510px
+      width: 574px
       background-color: #051039
       color: #ffffff
       border: none
       border-radius: 10px
       font-family: monospace
-      font-size: 35px
+      font-size: 40px
       transition: 200ms
       &:hover
         color: #4054A0

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
   const [tests, setTests] = useState([])
@@ -49,11 +50,13 @@ export default function Home() {
       </div>
     <div className='mainDivPage'>
       {tests.map((test) => (
-      <div className='testDiv'>
-        <span className='spanName'>{test.name}</span>
-        <span className='span'>Вопросов: {test.questions.length}</span>
-        <span className='span'>Автор: {test.owner}</span>
-      </div>
+      <Link className="link" href={`./${test._id}`} key={test.id}>
+        <div className='testDiv'>
+          <span className='spanName'>{test.name}</span>
+          <span className='span'>Вопросов: {test.questions.length}</span>
+          <span className='span'>Автор: {test.owner}</span>
+        </div>
+      </Link>
       )).reverse()}
     </div>
     </div>
