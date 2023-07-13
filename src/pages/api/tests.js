@@ -8,7 +8,7 @@ export default async function testsApi(req, res){
     res.json({result})
   }
   if (req.method === 'GET') {
-    const { owner, type, text } = req.query
+    const { owner, type, text, id } = req.query
     const query = {}
     if (owner) {
       query.owner = owner
@@ -17,10 +17,15 @@ export default async function testsApi(req, res){
       query.type = type
     }
     if (text) {
-      //const regex = new RegExp(`.*${text}.*`, 'i')
-      query.$or = [{name: /.*${text}.*/}, {owner: /.*${text}.*/}]
+      const regex = new RegExp(`.*${text}.*`, 'i')
+      query.$or = [{name: regex}, {owner: regex}]
     }
-    const result = await testsModel.find(query).exec()
-    res.json({ result })
+    if (id) {
+      const result = await testsModel.findById(id)
+      res.json(result)
+    } else {
+      const result = await testsModel.find(query).exec()
+      res.json({result})
+    }
   }
 }

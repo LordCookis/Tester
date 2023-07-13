@@ -1,13 +1,33 @@
+import { useEffect, useState } from "react" 
+import { useRouter } from 'next/router'
+
 export default function test() {
+  const [test, setTest] = useState({})
+  const [numQ, setNumQ] = useState(0)
+  const router = useRouter()
+  const { id } = router.query
+
+  useEffect(()=>{
+    thisTest()
+  }, [])
+
+  const thisTest = async() => {
+    const result = await fetch(`/api/tests?id=${id}`,{
+      method: 'GET'
+    })
+    const data = await result.json()
+    setTest(data)
+    //console.log(data)
+  }
 
   return(
     <div className="testDivPage">
-      <span className="testName">Тест на гея</span>
-      <span className="testQuestion">Ты питонист?</span>
+      <span className="testName">{test.name}</span>
+      <span className="testQuestion">{/*test.questions[numQ].textQ*/console.log(test.questions)}</span>
       <div className="answerDiv">
-        <button className="testAnswer">Да</button>
-        <button className="testAnswer">Нет</button>
-        <button className="testAnswer">Я в этом никогда ни сомневался</button>
+        {test.questions[numQ].answers.map((answer) => (
+        <button className="testAnswer">{answer.textA}</button>
+        ))}
       </div>
       <div className="divPage">
         <button className="buttonPage">НАЗАД</button>

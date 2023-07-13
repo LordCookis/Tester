@@ -1,5 +1,5 @@
 export const testsServices = {
-  async add() {
+  async post() {
     const result = await fetch("../../api/tests", {
       method: 'POST'
     })

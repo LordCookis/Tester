@@ -195,8 +195,8 @@ const valueAnswer = (e, numA) => {
           {!answer.state ?
           <button className="falseAnswer" onClick={()=>checkAnswer(answer.id)}>-</button> :
           <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>+</button>}
-        <input className="inputAnswer" placeholder="Введите ответ" value={answer.textA} onChange={(e)=>valueAnswer(e, index)}/>
-        <button className="delAnswer" onClick={()=>delAnswer(answer.id)}>x</button>
+          <input className="inputAnswer" placeholder="Введите ответ" value={answer.textA} onChange={(e)=>valueAnswer(e, index)}/>
+          <button className="delAnswer" onClick={()=>delAnswer(answer.id)}>x</button>
         </div>))}
         <button className="button" onClick={newAnswer}>+</button>
         <div className="divPage">
