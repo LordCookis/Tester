@@ -23,6 +23,7 @@ export default function test() {
   })
   const [checkAnswer, setCheckAnswer] = useState([])
   const [numQ, setNumQ] = useState(0)
+  //const [trueAnswers, setTrueAnswers] = useState(0)
   const router = useRouter()
   const { id } = router.query
 
@@ -52,12 +53,37 @@ export default function test() {
     setCheckAnswer(result)
   }
 
-  const backQ = () => {
-    numQ ? setNumQ(numQ - 1) : setNumQ(test.questions.length - 1)
+  const backQ = () => { numQ ? setNumQ(numQ - 1) : setNumQ(test.questions.length - 1) }
+
+  const nextQ = () => { test.questions.length !== numQ + 1 ? setNumQ(numQ + 1) : setNumQ(0) }
+
+  const closeTest = () => {
+    if (confirm("Вы уверены что хотите закрыть тест, данные не сохронятся?")) {
+      router.push('http://localhost:3000')
+    }
   }
 
-  const nextQ = () => {
-    test.questions.length !== numQ + 1 ? setNumQ(numQ + 1) : setNumQ(0)
+  const endTest = async() => {
+    const login = localStorage.getItem('login')
+    const owner = test.owner
+    let trueAnswers = 0
+    test.questions.forEach((question, index) => {
+      const countTrueA = question.answers.filter((answer) => answer.state).length === checkAnswer[index].length
+      const result =
+        countTrueA && question.answers.filter((answer) => answer.state).every((answer) =>
+          checkAnswer[index].includes(answer.id)
+        )
+        result ? trueAnswers++ : null
+    })
+    const countAnswers = test.questions.length
+    await fetch('/api/results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({login, trueAnswers, countAnswers, owner}),
+    })
+    router.push('http://localhost:3000')
   }
 
   return(
@@ -71,11 +97,11 @@ export default function test() {
       </div>
       <div className="divPage">
         <button className="buttonPage" onClick={backQ}>НАЗАД</button>
-        <button className="buttonExit">X</button>
+        <button className="buttonExit" onClick={closeTest}>X</button>
         <button className="buttonPage" onClick={nextQ}>ДАЛЕЕ</button>
       </div>
       <span className="span">{numQ + 1} / {test.questions.length}</span>
-      <button className="buttonEnd">ЗАВЕРШИТЬ</button>
+      <button className="buttonEnd" onClick={endTest}>ЗАВЕРШИТЬ</button>
     </div>
   )
 }

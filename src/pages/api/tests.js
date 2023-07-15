@@ -28,4 +28,8 @@ export default async function testsApi(req, res){
       res.json({result})
     }
   }
+  if (req.method === 'DELETE') {
+    const { id } = req.query
+    await testsModel.findByIdAndDelete(id)
+  }
 }

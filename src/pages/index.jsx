@@ -11,18 +11,20 @@ export default function Home() {
   }, [])
 
   const allTests = async() => {
-    const result = await fetch('/api/tests',{
+    const login = localStorage.getItem('login')
+    const result = await fetch(`/api/tests`,{
       method: 'GET'
     })
     const data = await result.json()
-    setTests(data.result)
+    setTests(data.result.filter((test) => test.owner !== login))
   }
 
   const nextType = () => {
     type === undefined ? setType(true) : type === true ? setType(false) : setType(undefined)
   }
 
-  const performSearch = async(e) => {
+  const search = async() => {
+    const login = localStorage.getItem('login')
     let url = '/api/tests?'
     if (type !== undefined) {
       url += `type=${type}&`
@@ -34,27 +36,33 @@ export default function Home() {
       method: 'GET',
     })
     const data = await result.json()
-    setTests(data.result)
+    setTests(data.result.filter((test) => test.owner !== login))
+  }
+
+  const deleteTest = async() => {
+
   }
 
   return (
     <div className='mainPage'>
       <div className='filterDiv'>
-        <form className='findDiv' onSubmit={(e)=>{e.preventDefault(); performSearch()}}>
+        <form className='findDiv' onSubmit={(e)=>{e.preventDefault(); search()}}>
           <input className='input' value={text} placeholder='ПОИСК' onChange={(e)=>setText(e.target.value)}/>
           <button className='button'>НАЙТИ</button>
         </form>
         <div className='typeDiv't>
-          <button className='button' onClick={()=>{nextType(); performSearch()}}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
+          <button className='button' onClick={()=>{nextType(); search()}}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
     <div className='mainDivPage'>
       {tests.map((test) => (
-      <Link className="link" href={`./${test._id}`} key={test.id}>
+      <Link className="link" href={`./${test._id}`} key={test._id}>
         <div className='testDiv'>
           <span className='spanName'>{test.name}</span>
           <span className='span'>Вопросов: {test.questions.length}</span>
           <span className='span'>Автор: {test.owner}</span>
+          {!test.type ? <div className='closeTest'>З</div> : null}
+          <div className='deleteTest' onClick={deleteTest}>Х</div>
         </div>
       </Link>
       )).reverse()}
