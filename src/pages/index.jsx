@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Home() {
   const [tests, setTests] = useState([])
-  const [type, setType] = useState(undefined)
+  const [type, setType] = useState(null)
   const [text, setText] = useState("")
 
   useEffect(()=>{
@@ -20,13 +20,17 @@ export default function Home() {
   }
 
   const nextType = () => {
-    type === undefined ? setType(true) : type === true ? setType(false) : setType(undefined)
+    type === null ? setType(true) : type === true ? setType(false) : setType(null)
   }
+
+  useEffect(() => {
+    search()
+  }, [type])
 
   const search = async() => {
     const login = localStorage.getItem('login')
     let url = '/api/tests?'
-    if (type !== undefined) {
+    if (type !== null) {
       url += `type=${type}&`
     }
     if (text) {
@@ -51,7 +55,7 @@ export default function Home() {
           <button className='button'>НАЙТИ</button>
         </form>
         <div className='typeDiv't>
-          <button className='button' onClick={()=>{nextType(); search()}}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
+          <button className='button' onClick={nextType}>{type === null ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
     <div className='mainDivPage'>
@@ -62,7 +66,7 @@ export default function Home() {
           <span className='span'>Вопросов: {test.questions.length}</span>
           <span className='span'>Автор: {test.owner}</span>
           {!test.type ? <div className='closeTest'>З</div> : null}
-          <div className='deleteTest' onClick={deleteTest}>Х</div>
+          <button className='deleteTest' onClick={deleteTest}>Х</button>
         </div>
       </Link>
       )).reverse()}

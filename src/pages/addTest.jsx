@@ -160,7 +160,7 @@ const valueAnswer = (e, numA) => {
       setTest({
         name: "",
         type: true,
-        owner: "",
+        owner: localStorage.getItem('login'),
         questions: [{
           id: randomNumber(1000,9999),
           textQ: "",

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 export default function myTests() {
   const [tests, setTests] = useState([])
-  const [type, setType] = useState(undefined)
+  const [type, setType] = useState(null)
   const [text, setText] = useState("")
 
   useEffect(()=>{
@@ -18,14 +18,18 @@ export default function myTests() {
     setTests(data.result)
   }
 
-  const nextType = () => {
-    type === undefined ? setType(true) : type === true ? setType(false) : setType(undefined)
+  const nextType = async() => {
+    type === null ? setType(true) : type === true ? setType(false) : setType(null)
   }
 
-  const search = async(e) => {
+  useEffect(() => {
+    search()
+  }, [type])
+
+  const search = async() => {
     const owner = localStorage.getItem('login')
     let url = `/api/tests?owner=${owner}&`
-    if (type !== undefined) {
+    if (type !== null) {
       url += `type=${type}&`
     }
     if (text) {
@@ -33,7 +37,7 @@ export default function myTests() {
     }
     const result = await fetch(url, {
       method: 'GET',
-    })
+    }).then(console.log(111, type))
     const data = await result.json()
     setTests(data.result)
   }
@@ -41,8 +45,7 @@ export default function myTests() {
   const deleteTest = async(id) => {
     await fetch(`/api/tests?id=${id}`, {
       method: 'DELETE',
-    })
-    search()
+    }).then(myTests())
   }
 
   return (
@@ -53,7 +56,7 @@ export default function myTests() {
           <button className='button'>НАЙТИ</button>
         </form>
         <div className='typeDiv't>
-          <button className='button' onClick={()=>{nextType(); search()}}>{type === undefined ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
+          <button className='button' onClick={nextType}>{type === null ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
     <div className='mainDivPage'>
@@ -63,7 +66,7 @@ export default function myTests() {
         <span className='span'>Вопросов: {test.questions.length}</span>
         <span className='span'>Автор: {test.owner}</span>
         {!test.type ? <div className='closeTest'>З</div> : null}
-        <div className='deleteTest' onClick={deleteTest(test._id)}>Х</div>
+        <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
       </div>
       )).reverse()}
     </div>
