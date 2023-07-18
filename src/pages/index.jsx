@@ -43,8 +43,10 @@ export default function Home() {
     setTests(data.result.filter((test) => test.owner !== login))
   }
 
-  const deleteTest = async() => {
-
+  const deleteTest = async(id) => {
+    await fetch(`/api/tests?id=${id}`, {
+      method: 'DELETE',
+    }).then(allTests())
   }
 
   return (
@@ -66,7 +68,7 @@ export default function Home() {
           <span className='span'>Вопросов: {test.questions.length}</span>
           <span className='span'>Автор: {test.owner}</span>
           {!test.type ? <div className='closeTest'>З</div> : null}
-          <button className='deleteTest' onClick={deleteTest}>Х</button>
+          <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
         </div>
       </Link>
       )).reverse()}

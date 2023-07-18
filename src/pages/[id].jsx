@@ -23,7 +23,6 @@ export default function test() {
   })
   const [checkAnswer, setCheckAnswer] = useState([])
   const [numQ, setNumQ] = useState(0)
-  //const [trueAnswers, setTrueAnswers] = useState(0)
   const router = useRouter()
   const { id } = router.query
 
@@ -66,6 +65,7 @@ export default function test() {
   const endTest = async() => {
     const login = localStorage.getItem('login')
     const owner = test.owner
+    const name = test.name
     let trueAnswers = 0
     test.questions.forEach((question, index) => {
       const countTrueA = question.answers.filter((answer) => answer.state).length === checkAnswer[index].length
@@ -81,7 +81,7 @@ export default function test() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({login, trueAnswers, countAnswers, owner}),
+      body: JSON.stringify({login, trueAnswers, countAnswers, owner, id, name}),
     })
     router.push('http://localhost:3000')
   }

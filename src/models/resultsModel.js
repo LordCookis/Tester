@@ -8,6 +8,8 @@ const resultsSchema = new Schema({
   trueAnswers: Number,
   countAnswers: Number,
   owner: String,
+  testId: String,
+  testName: String,
   date: {
     type: Date,
     default: Date.now

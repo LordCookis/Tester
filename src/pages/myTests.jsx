@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Link from "next/link"
 
 export default function myTests() {
   const [tests, setTests] = useState([])
@@ -37,7 +38,7 @@ export default function myTests() {
     }
     const result = await fetch(url, {
       method: 'GET',
-    }).then(console.log(111, type))
+    })
     const data = await result.json()
     setTests(data.result)
   }
@@ -61,13 +62,15 @@ export default function myTests() {
       </div>
     <div className='mainDivPage'>
       {tests.map((test) => (
-      <div className='testDiv'>
-        <span className='spanName'>{test.name}</span>
-        <span className='span'>Вопросов: {test.questions.length}</span>
-        <span className='span'>Автор: {test.owner}</span>
-        {!test.type ? <div className='closeTest'>З</div> : null}
-        <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
-      </div>
+      <Link className="link" href={`myTests/${test._id}`} key={`${test._id}`}>
+        <div className='testDiv'>
+          <span className='spanName'>{test.name}</span>
+          <span className='span'>Вопросов: {test.questions.length}</span>
+          <span className='span'>Автор: {test.owner}</span>
+          {!test.type ? <div className='closeTest'>З</div> : null}
+          <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
+        </div>
+      </Link>
       )).reverse()}
     </div>
     </div>
