@@ -7,8 +7,14 @@ export default async function resultApi(req, res){
     res.json({result})
   }
   if (req.method === 'GET') {
-    const { testId } = req.query
-    const result = await resultsModel.find({testId: testId}).exec()
+    const { testId, text } = req.query
+    const query = {}
+    query.testId = testId
+    if (text) {
+      const regex = new RegExp(`.*${text}.*`, 'i')
+      query.$or = [{login: regex}]
+    }
+    const result = await resultsModel.find(query).exec()
     res.json({result})
   }
 }

@@ -152,31 +152,78 @@ a
   display: flex
   flex-direction: column
   align-items: center
-  .button
+  .link
     padding: 5px 15px 5px 15px
     margin: 25px
-    background-color: #071855
     color: #ffffff
-    border: none
-    border-radius: 10px
     font-family: monospace
     font-size: 35px
     transition: 200ms
     cursor: pointer
     &:hover
       color: #34C8EC
+  .filterDiv
+    width: 83.5vw
+    margin: 25px 15px 15px 15px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .findDiv
+      .input
+        padding: 5px
+        width: 350px
+        background-color: #051039
+        color: #ffffff
+        border: none
+        border-radius: 10px 0px 0px 10px
+        font-family: monospace
+        font-size: 30px
+        text-align: center
+        outline: none
+        &::placeholder
+          color: #4054A0
+      .button
+        padding: 5px
+        width: 160px
+        background-color: #071855
+        color: #ffffff
+        border: none
+        border-radius: 0px 10px 10px 0px
+        font-family: monospace
+        font-size: 30px
+        transition: 200ms
+        &:hover
+          color: #34C8EC
+    .typeDiv
+      .button
+        padding: 5px
+        width: 210px
+        background-color: #000720
+        color: #34C8EC
+        border: none
+        font-family: monospace
+        font-size: 30px
+        text-align: right
+        transition: 200ms
+        &:hover
+          color: #4054A0
   .span
     font-size: 35px
     color: #34C8EC
-  .resultsDiv
-    width: 83.5vw
-    padding: 15px
-    margin: 25px
+  .statisticDiv
     display: flex
-    flex-direction: column
-    align-items: center
-    background-color: #051039
-    border-radius: 10px
+    flex-wrap: wrap
+    justify-content: center
+    .resultsDiv
+      width: 460px
+      padding: 15px
+      margin: 25px
+      display: flex
+      flex-direction: column
+      align-items: flex-start
+      background-color: #051039
+      border-radius: 10px
+      font-size: 32px
 
 .testDivPage
   display: flex

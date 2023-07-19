@@ -56,7 +56,7 @@ export default function Home() {
           <input className='input' value={text} placeholder='ПОИСК' onChange={(e)=>setText(e.target.value)}/>
           <button className='button'>НАЙТИ</button>
         </form>
-        <div className='typeDiv't>
+        <div className='typeDiv'>
           <button className='button' onClick={nextType}>{type === null ? 'ВСЕ' : type === true ? 'ОТКРЫТЫЕ' : 'ЗАКРЫТЫЕ'}</button>
         </div>
       </div>
