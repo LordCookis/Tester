@@ -27,6 +27,18 @@ export default function editTest() {
   const router = useRouter()
   const { id } = router.query
 
+  useEffect(()=>{
+    thisTest()
+  }, [])
+
+  const thisTest = async() => {
+    const result = await fetch(`/api/tests?id=${id}`,{
+      method: 'GET'
+    })
+    const data = await result.json()
+    setTest(data)
+  }
+
   const valueQuestion = (e) => {
     setTest({
       ...test,
@@ -139,7 +151,20 @@ export default function editTest() {
   }
 
   const editTest = async() => {
-
+    if (confirm("Вы уверены что обновить тест, результаты прохождения пользователей сотрутся?")) {
+      const result = await fetch(`/api/tests?id=${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({test}),
+      })
+      if (result.ok) {
+        await fetch(`/api/results?testId=${id}`, {
+          method: 'DELETE',
+        }).then(router.push('/myTests'))
+      }
+    }
   }
 
   return(
@@ -168,7 +193,7 @@ export default function editTest() {
           <button className="buttonPage" onClick={nextQ}>ДАЛЕЕ</button>
         </div>
         <span>{numQ + 1} / {test.questions.length}</span>
-        <button className="button" onClick={editTest}>СОЗДАТЬ ТЕСТ</button>
+        <button className="button" onClick={editTest}>ИЗМЕНИТЬ ТЕСТ</button>
       </div>
       <span className="errorSpan">{error}</span>
     </div>

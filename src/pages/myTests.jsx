@@ -62,15 +62,17 @@ export default function myTests() {
       </div>
     <div className='mainDivPage'>
       {tests.map((test) => (
-      <Link className="link" href={`myTests/${test._id}`} key={`${test._id}`}>
-        <div className='testDiv'>
-          <span className='spanName'>{test.name}</span>
-          <span className='span'>Вопросов: {test.questions.length}</span>
-          <span className='span'>Автор: {test.owner}</span>
-          {!test.type ? <div className='closeTest'>З</div> : null}
-          <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
-        </div>
-      </Link>
+      <div className="mainDiv">
+        <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
+        <Link href={`myTests/${test._id}`} key={`${test._id}`}>
+          <div className='testDiv'>
+            <span className='spanName'>{test.name}</span>
+            <span className='span'>Вопросов: {test.questions.length}</span>
+            <span className='span'>Автор: {test.owner}</span>
+            {!test.type ? <div className='closeTest'>З</div> : null}
+          </div>
+        </Link>
+      </div>
       )).reverse()}
     </div>
     </div>

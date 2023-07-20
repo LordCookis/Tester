@@ -32,4 +32,10 @@ export default async function testsApi(req, res){
     const { id } = req.query
     await testsModel.findByIdAndDelete(id)
   }
+  if (req.method === 'PATCH') {
+    const { id } = req.query
+    const { test } = req.body
+    const result = await testsModel.findByIdAndUpdate(id, test, { new: true })
+    res.json(result)
+  }
 }

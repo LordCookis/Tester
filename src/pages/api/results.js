@@ -17,4 +17,8 @@ export default async function resultApi(req, res){
     const result = await resultsModel.find(query).exec()
     res.json({result})
   }
+  if (req.method === 'DELETE') {
+    const { testId } = req.query
+    await resultsModel.deleteMany({testId})
+  }
 }

@@ -5,6 +5,7 @@ export default function Home() {
   const [tests, setTests] = useState([])
   const [type, setType] = useState(null)
   const [text, setText] = useState("")
+  const [role, setRole] = useState(false)
 
   useEffect(()=>{
     allTests()
@@ -17,6 +18,11 @@ export default function Home() {
     })
     const data = await result.json()
     setTests(data.result.filter((test) => test.owner !== login))
+    const resultS = await fetch(`/api/users?login=${login}`,{
+      method: 'GET'
+    })
+    const dataS = await resultS.json()
+    setRole(dataS.role)
   }
 
   const nextType = () => {
@@ -62,15 +68,17 @@ export default function Home() {
       </div>
     <div className='mainDivPage'>
       {tests.map((test) => (
-      <Link className="link" href={`./${test._id}`} key={test._id}>
-        <div className='testDiv'>
-          <span className='spanName'>{test.name}</span>
-          <span className='span'>Вопросов: {test.questions.length}</span>
-          <span className='span'>Автор: {test.owner}</span>
-          {!test.type ? <div className='closeTest'>З</div> : null}
-          <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button>
-        </div>
-      </Link>
+      <div className="mainDiv">
+        {role ? <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button> : null}
+        <Link className="link" href={`./${test._id}`} key={test._id}>
+          <div className='testDiv'>
+            <span className='spanName'>{test.name}</span>
+            <span className='span'>Вопросов: {test.questions.length}</span>
+            <span className='span'>Автор: {test.owner}</span>
+            {!test.type ? <div className='closeTest'>З</div> : null}
+          </div>
+        </Link>
+      </div>
       )).reverse()}
     </div>
     </div>

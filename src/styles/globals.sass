@@ -91,44 +91,11 @@ a
     display: flex
     flex-wrap: wrap
     justify-content: center
-    .testDiv
+    .mainDiv
       height: 150px
       width: 350px
-      padding: 10px
-      margin: 15px
-      display: flex
-      flex-direction: column
-      justify-content: center
-      align-items: center
-      background-color: #051039
-      border-radius: 10px
-      font-size: 27.5px 
-      transition: 200ms
-      cursor: pointer
+      margin: 15px 28px 15px 28px
       position: relative
-      &:hover
-        background-color: #071855
-      .spanName
-        margin: 5px
-        color: #34C8EC
-      .span
-        margin: 5px
-      .closeTest
-        padding: 10px
-        height: 15px
-        width: 15px
-        display: flex
-        justify-content: center
-        align-items: center
-        background-color: #7c1818
-        color: #ffffff
-        border: none
-        border-radius: 10px 0px 10px 0px
-        font-family: monospace
-        font-size: 25px
-        position: absolute
-        top: 0
-        left: 0
       .deleteTest
         padding: 10px
         height: 35px
@@ -144,9 +111,45 @@ a
         font-size: 25px
         position: absolute
         top: 0
-        right: 0
+        right: -20px
         &:hover
           background-color: #c41818
+      .testDiv
+        height: 150px
+        width: 350px
+        padding: 10px
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        background-color: #051039
+        border-radius: 10px
+        font-size: 27.5px 
+        transition: 200ms
+        cursor: pointer
+        &:hover
+          background-color: #071855
+        .spanName
+          margin: 5px
+          color: #34C8EC
+        .span
+          margin: 5px
+        .closeTest
+          padding: 10px
+          height: 15px
+          width: 15px
+          display: flex
+          justify-content: center
+          align-items: center
+          background-color: #7c1818
+          color: #ffffff
+          border: none
+          border-radius: 10px 0px 10px 0px
+          font-family: monospace
+          font-size: 25px
+          position: absolute
+          top: 0
+          left: 0
 
 .myTestDivPage
   display: flex
