@@ -65,18 +65,18 @@ export default function logReg() {
   return(
     <div className="logRegPage">
       {page ? <form className="logRegDiv" onSubmit={log}>
-      <span className="pageSpan">ВХОД</span>
-      <input className="input" autoComplete="off" value={login} placeholder="ВВЕДИТЕ ЛОГИН" onChange={(e)=>setLogin(e.target.value)}></input>
-      <input className="input" autoComplete="off" value={password} type="password" placeholder="ВВЕДИТЕ ПАРОЛЬ" onChange={(e)=>setPassword(e.target.value)}></input>
-      <button className="button">ВОЙТИ</button>
-      <button className="buttonPage" onClick={reset}>НЕТ АККАУНТА?</button>
+        <span className="pageSpan">ВХОД</span>
+        <input className="input" autoComplete="off" value={login} placeholder="ВВЕДИТЕ ЛОГИН" onChange={(e)=>setLogin(e.target.value)}></input>
+        <input className="input" autoComplete="off" value={password} type="password" placeholder="ВВЕДИТЕ ПАРОЛЬ" onChange={(e)=>setPassword(e.target.value)}></input>
+        <button className="button">ВОЙТИ</button>
+        <button className="buttonPage" onClick={reset}>НЕТ АККАУНТА?</button>
       </form> : <form className="logRegDiv" onSubmit={reg}>
-      <span className="pageSpan">РЕГИСТРАЦИЯ</span>
-      <input className="input" autoComplete="off" value={login} placeholder="ВВЕДИТЕ ЛОГИН" onChange={(e)=>setLogin(e.target.value)}></input>
-      <input className="input" autoComplete="off" value={password} type="password" placeholder="ВВЕДИТЕ ПАРОЛЬ" onChange={(e)=>setPassword(e.target.value)}></input>
-      <input className="input" autoComplete="off" value={checkPassword} type="password" placeholder="ПОВТОРИТЕ ПАРОЛЬ" onChange={(e)=>setCheckPassword(e.target.value)}></input>
-      <button className="button">ВОЙТИ</button>
-      <button className="buttonPage" onClick={reset}>ЕСТЬ АККАУНТ?</button>
+        <span className="pageSpan">РЕГИСТРАЦИЯ</span>
+        <input className="input" autoComplete="off" value={login} placeholder="ВВЕДИТЕ ЛОГИН" onChange={(e)=>setLogin(e.target.value)}></input>
+        <input className="input" autoComplete="off" value={password} type="password" placeholder="ВВЕДИТЕ ПАРОЛЬ" onChange={(e)=>setPassword(e.target.value)}></input>
+        <input className="input" autoComplete="off" value={checkPassword} type="password" placeholder="ПОВТОРИТЕ ПАРОЛЬ" onChange={(e)=>setCheckPassword(e.target.value)}></input>
+        <button className="button">ВОЙТИ</button>
+        <button className="buttonPage" onClick={reset}>ЕСТЬ АККАУНТ?</button>
       </form>
       }
       <span className="errorSpan">{error}</span>
