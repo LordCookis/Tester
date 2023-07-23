@@ -9,7 +9,7 @@ export default function NavBar() {
   useEffect(() => {
     const login = localStorage.getItem('login')
     setState(login)
-  }, [])
+  })
 
   const logout = () => {
     localStorage.removeItem('login')
@@ -27,7 +27,7 @@ export default function NavBar() {
           <button className="button" onClick={logout}>ВЫХОД</button>
         </> 
         : 
-        <Link href="/logReg" className="link">ВХОД</Link>
+        <></>
       }
     </div>
   )

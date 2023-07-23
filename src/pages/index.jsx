@@ -22,7 +22,7 @@ export default function Home() {
       method: 'GET'
     })
     const dataS = await resultS.json()
-    setRole(dataS.role)
+    setRole(dataS.result.role)
   }
 
   const nextType = () => {

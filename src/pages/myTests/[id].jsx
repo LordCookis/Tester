@@ -19,10 +19,12 @@ export default function myTest() {
   const { id } = router.query
 
   useEffect(()=>{
-    allStatistic()
+    if (id) { localStorage.setItem('id', id) }
+    const testId = localStorage.getItem('id')
+    testId ? allStatistic(testId) : allStatistic()
   }, [])
 
-  const allStatistic = async() => {
+  const allStatistic = async(id) => {
     const result = await fetch(`../api/results?testId=${id}`,{
       method: 'GET'
     })

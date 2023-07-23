@@ -28,10 +28,12 @@ export default function editTest() {
   const { id } = router.query
 
   useEffect(()=>{
-    thisTest()
+    if (id) { localStorage.setItem('id', id) }
+    const testId = localStorage.getItem('id')
+    testId ? thisTest(testId) : thisTest()
   }, [])
 
-  const thisTest = async() => {
+  const thisTest = async(id) => {
     const result = await fetch(`/api/tests?id=${id}`,{
       method: 'GET'
     })

@@ -10,13 +10,12 @@ export default async function usersApi(req, res){
   if (req.method === 'GET') {
     const { login, password } = req.query
     const result = await usersModel.findOne({login: login})
-    res.json(result)
+    res.json({result})
     if (!result) {
       return res.status(400).json({error: "Ошибка: такого логина нет"})
     }
     if (result.password !== password) {
       return res.status(400).json({error: "Ошибка: пароль неверный"})
     }
-
   }
 }

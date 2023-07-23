@@ -18,8 +18,9 @@ export default function logReg() {
     } else {
       const result = await fetch(`/api/users?login=${login}&password=${password}`)
       const data = await result.json()
-      if (data.success) {
+      if (data.result) {
         localStorage.setItem("login", login)
+        console.log("fffff")
         router.push('/')
       }
       setLogin("")
@@ -45,8 +46,9 @@ export default function logReg() {
         body: JSON.stringify({login, password}),
       })
       const data = await result.json()
-      if (data.success) {
+      if (data.result) {
         localStorage.setItem("login", login)
+        console.log("fffff")
         router.push('/')
       }
       setLogin("")
@@ -69,16 +71,15 @@ export default function logReg() {
         <input className="input" autoComplete="off" value={login} placeholder="ВВЕДИТЕ ЛОГИН" onChange={(e)=>setLogin(e.target.value)}></input>
         <input className="input" autoComplete="off" value={password} type="password" placeholder="ВВЕДИТЕ ПАРОЛЬ" onChange={(e)=>setPassword(e.target.value)}></input>
         <button className="button">ВОЙТИ</button>
-        <button className="buttonPage" onClick={reset}>НЕТ АККАУНТА?</button>
       </form> : <form className="logRegDiv" onSubmit={reg}>
         <span className="pageSpan">РЕГИСТРАЦИЯ</span>
         <input className="input" autoComplete="off" value={login} placeholder="ВВЕДИТЕ ЛОГИН" onChange={(e)=>setLogin(e.target.value)}></input>
         <input className="input" autoComplete="off" value={password} type="password" placeholder="ВВЕДИТЕ ПАРОЛЬ" onChange={(e)=>setPassword(e.target.value)}></input>
         <input className="input" autoComplete="off" value={checkPassword} type="password" placeholder="ПОВТОРИТЕ ПАРОЛЬ" onChange={(e)=>setCheckPassword(e.target.value)}></input>
         <button className="button">ВОЙТИ</button>
-        <button className="buttonPage" onClick={reset}>ЕСТЬ АККАУНТ?</button>
       </form>
       }
+      <button className="buttonPage" onClick={reset}>{page ? "НЕТ АККАУНТА?" : "ЕСТЬ АККАУНТ?"}</button>
       <span className="errorSpan">{error}</span>
     </div>
   )
