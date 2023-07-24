@@ -27,10 +27,10 @@ export default function editTest() {
   const router = useRouter()
   const { id } = router.query
 
-  useEffect(()=>{
-    if (id) { localStorage.setItem('id', id) }
-    const testId = localStorage.getItem('id')
-    testId ? thisTest(testId) : thisTest()
+  useEffect(() => {
+    if (id) { localStorage.setItem('thisId', id) }
+    const thisId = localStorage.getItem('thisId')
+    thisId ? thisTest(thisId) : thisTest()
   }, [])
 
   const thisTest = async(id) => {

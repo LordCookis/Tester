@@ -3,20 +3,20 @@ import { useRouter } from 'next/router'
 
 export default function test() {
   const [test, setTest] = useState({
-    name: "",
+    name: "...",
     type: true,
-    owner: "",
+    owner: "...",
     questions: [{
       id: 0,
-      textQ: "",
+      textQ: "...",
       answers: [{
         id: 0,
-        textA: "",
+        textA: "...",
         state: false
       },
       {
         id: 0,
-        textA: "",
+        textA: "...",
         state: false
       }]
     }]
@@ -26,10 +26,10 @@ export default function test() {
   const router = useRouter()
   const { id } = router.query
 
-  useEffect(()=>{
-    if (id) { localStorage.setItem('id', id) }
-    const testId = localStorage.getItem('id')
-    testId ? thisTest(testId) : thisTest()
+  useEffect(() => {
+    if (id) { localStorage.setItem('thisId', id) }
+    const thisId = localStorage.getItem('thisId')
+    thisId ? thisTest(thisId) : thisTest()
   }, [])
 
   const thisTest = async(id) => {

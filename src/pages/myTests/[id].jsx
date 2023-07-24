@@ -18,10 +18,10 @@ export default function myTest() {
   const router = useRouter()
   const { id } = router.query
 
-  useEffect(()=>{
-    if (id) { localStorage.setItem('id', id) }
-    const testId = localStorage.getItem('id')
-    testId ? allStatistic(testId) : allStatistic()
+  useEffect(() => {
+    if (id) { localStorage.setItem('thisId', id) }
+    const thisid = localStorage.getItem('thisId')
+    thisid ? allStatistic(thisid).then(allStatistic(thisid)) : allStatistic()
   }, [])
 
   const allStatistic = async(id) => {
