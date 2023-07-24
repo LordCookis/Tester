@@ -99,7 +99,7 @@ export default function test() {
       </div>
       <div className="divPage">
         <button className="buttonPage" onClick={backQ}>НАЗАД</button>
-        <button className="buttonExit" onClick={closeTest}>X</button>
+        <img src="/false.svg" alt="" className="buttonExit" onClick={closeTest}/>
         <button className="buttonPage" onClick={nextQ}>ДАЛЕЕ</button>
       </div>
       <span className="span">{numQ + 1} / {test.questions.length}</span>

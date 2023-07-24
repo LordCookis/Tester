@@ -69,7 +69,7 @@ export default function Home() {
     <div className='mainDivPage'>
       {tests.map((test) => (
       <div className="mainDiv">
-        {role ? <button className='deleteTest' onClick={()=>deleteTest(test._id)}>Х</button> : null}
+        {role ? <img src="/delete.svg" alt="" className='deleteTest' onClick={()=>deleteTest(test._id)}/> : null}
         <Link className="link" href={`./${test._id}`} key={test._id}>
           <div className='testDiv'>
             <span className='spanName'>{test.name}</span>

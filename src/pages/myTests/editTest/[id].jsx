@@ -175,18 +175,18 @@ export default function editTest() {
       <div className="addTestDiv">
         <div className="questionDiv">
           {test.type ? 
-          <button className="publicTest" onClick={()=>setTest({...test, type: false})}>O</button> :
-          <button className="privateTest" onClick={()=>setTest({...test, type: true})}>З</button>}
+          <img src="/off.svg" alt="" className="publicTest" onClick={()=>setTest({...test, type: false})}/> :
+          <img src="/on.svg" alt="" className="privateTest" onClick={()=>setTest({...test, type: true})}/>}
           <input className="inputQuestion" placeholder="Введите вопрос" value={test.questions[numQ].textQ} onChange={(e)=>valueQuestion(e)}/>
-          <button className="delQuestion" onClick={delQuestion}>x</button>
+          <img src="/delete.svg" alt="" className="delQuestion" onClick={()=>delQuestion(answer.id)}/>
         </div>
         {test.questions[numQ].answers.map((answer, index) => (
         <div className="answerDiv">
           {!answer.state ?
-          <button className="falseAnswer" onClick={()=>checkAnswer(answer.id)}>-</button> :
-          <button className="trueAnswer" onClick={()=>checkAnswer(answer.id)}>+</button>}
+          <img src="/false.svg" alt="" className="falseAnswer" onClick={()=>checkAnswer(answer.id)}/> :
+          <img src="/true.svg" alt="" className="trueAnswer" onClick={()=>checkAnswer(answer.id)}/>}
           <input className="inputAnswer" placeholder="Введите ответ" value={answer.textA} onChange={(e)=>valueAnswer(e, index)}/>
-          <button className="delAnswer" onClick={()=>delAnswer(answer.id)}>x</button>
+          <img src="/delete.svg" alt="" className="delAnswer" onClick={()=>delAnswer(answer.id)}/>
         </div>))}
         <button className="button" onClick={newAnswer}>+</button>
         <div className="divPage">
